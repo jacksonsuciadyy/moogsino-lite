@@ -1,7 +1,5 @@
-require("dotenv").config()
-
 const Discord = require("discord.js")
-// const generateImage = require("./generateImage")
+require("dotenv").config()
 
 const client = new Discord.Client({
     intents: [
@@ -11,33 +9,27 @@ const client = new Discord.Client({
     ]
 })
 
+client.slashcommands = new Discord.Collection()
+
 let bot = {
     client,
-    prefix: "!",
-    owners: ["166560098817277952"]
 }
+
+client.loadSlashCommands = (bot, reload) => require("./handlers/slashCommandsHandler")(bot, reload)
+client.loadSlashCommands(bot, false)
 
 const guildID = "973074473353871390"
 
-client.slashCommands = new Discord.Collection()
-
-client.loadSlashCommands = (bot, reload) => require("./handlers/slashCommandsHandler")(bot,reload)
-console.log("Successfully loading slash commands")
-client.loadSlashCommands(bot, false)
-console.log("Successfully running slash commands")
-
 client.on("ready", async () => {
-    const guild = client.guilds.cache.get(guildID)
-    if(!guild)
-        console.error("Target guild not found!")
+    console.log(`Loading ${client.slashcommands.size} slash commands`)
 
-    await guild.commands.set([...client.slashCommands.values()])
+    const guild = client.guilds.cache.get(guildId)
+    if (!guild)
+        console.error("Target Guild not found")
 
-    console.log(`Successfully loaded in ${client.slashCommands.size}`)
+    await guild.commands.set([...client.slashcommands.values()])
+    console.log("Finished")
     process.exit(0)
 })
-
-
-module.exports = bot
 
 client.login(process.env.TOKEN)

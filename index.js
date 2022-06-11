@@ -28,11 +28,17 @@ client.loadSlashCommands = (bot, reload) => require("./handlers/slashCommandsHan
 client.loadButtons = (bot, reload) => require("./handlers/buttonsHandler")(bot,reload)
 
 client.loadEvents(bot, false)
+console.log("Finished Loading Events!")
 client.loadCommands(bot, false)
+console.log("Finished Loading Commands!")
 client.loadSlashCommands(bot, false)
+console.log("Finished Loading Slash Commands!")
 client.loadButtons(bot, false)
+console.log("Finished Loading Buttons!")
 
 client.on("interactionCreate", (interaction) => {
+    console.log("Entered interactionCreate!")
+
     if(!interaction.isCommand()) return
     if(!interaction.inGuild()) return interaction.reply(("This command can only be used in a server!"))
 
@@ -44,6 +50,7 @@ client.on("interactionCreate", (interaction) => {
         return interaction.reply("You do not have permission for this command!")
 
     slashcmd.run(client, interaction)
+    console.log("Finished interactionCreate!")
 })
 
 module.exports = bot
