@@ -23,7 +23,7 @@ const guildID = "973074473353871390"
 client.on("ready", async () => {
     console.log(`Loading ${client.slashCommands.size} slash commands`)
 
-    const guild = client.guilds.cache.get(guildId)
+    const guild = client.guilds.cache.get(guildID)
     if (!guild)
         console.error("Target Guild not found")
 

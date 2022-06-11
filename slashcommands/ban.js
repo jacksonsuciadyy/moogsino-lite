@@ -30,7 +30,7 @@ module.exports = {
         },
         {
             name: "reason",
-            tdescription: "Reason for punishment",
+            description: "Reason for punishment",
             type: "STRING",
             required: false
         }
