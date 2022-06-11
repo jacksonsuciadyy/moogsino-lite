@@ -20,14 +20,17 @@ let bot = {
 client.commands = new Discord.Collection()
 client.events = new Discord.Collection()
 client.slashCommands = new Discord.Collection()
+client.buttons = new Discord.Collection()
 
 client.loadEvents = (bot, reload) => require("./handlers/eventsHandler")(bot,reload)
 client.loadCommands = (bot, reload) => require("./handlers/commandsHandler")(bot,reload)
-client.loadSlashCommands = (bot, reload) => require("./handlers/commandsHandler")(bot,reload)
+client.loadSlashCommands = (bot, reload) => require("./handlers/slashCommandsHandler")(bot,reload)
+client.loadButtons = (bot, reload) => require("./handlers/buttonsHandler")(bot,reload)
 
 client.loadEvents(bot, false)
 client.loadCommands(bot, false)
 client.loadSlashCommands(bot, false)
+client.loadButtons(bot, false)
 
 client.on("interactionCreate", (interaction) => {
     if(!interaction.isCommand()) return
