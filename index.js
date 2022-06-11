@@ -1,6 +1,6 @@
+const Discord = require("discord.js")
 require("dotenv").config()
 
-const Discord = require("discord.js")
 // const generateImage = require("./generateImage")
 
 const client = new Discord.Client({
@@ -22,10 +22,10 @@ client.events = new Discord.Collection()
 client.slashCommands = new Discord.Collection()
 client.buttons = new Discord.Collection()
 
-client.loadEvents = (bot, reload) => require("./handlers/eventsHandler")(bot,reload)
-client.loadCommands = (bot, reload) => require("./handlers/commandsHandler")(bot,reload)
-client.loadSlashCommands = (bot, reload) => require("./handlers/slashCommandsHandler")(bot,reload)
-client.loadButtons = (bot, reload) => require("./handlers/buttonsHandler")(bot,reload)
+client.loadEvents = (bot, reload) => require("./handlers/eventsHandler")(bot, reload)
+client.loadCommands = (bot, reload) => require("./handlers/commandsHandler")(bot, reload)
+client.loadSlashCommands = (bot, reload) => require("./handlers/slashCommandsHandler")(bot, reload)
+client.loadButtons = (bot, reload) => require("./handlers/buttonsHandler")(bot, reload)
 
 client.loadEvents(bot, false)
 console.log("Finished Loading Events!")
@@ -36,22 +36,6 @@ console.log("Finished Loading Slash Commands!")
 client.loadButtons(bot, false)
 console.log("Finished Loading Buttons!")
 
-client.on("interactionCreate", (interaction) => {
-    console.log("Entered interactionCreate!")
-
-    if(!interaction.isCommand()) return
-    if(!interaction.inGuild()) return interaction.reply(("This command can only be used in a server!"))
-
-    const slashcmd = client.slashCommands.get(interaction.commandName)
-
-    if(!slashcmd) return interaction.reply(("Invalid slash command!"))
-
-    if(slashcmd.perm && !interaction.member.permissions.has(slashcmd.perm))
-        return interaction.reply("You do not have permission for this command!")
-
-    slashcmd.run(client, interaction)
-    console.log("Finished interactionCreate!")
-})
 
 module.exports = bot
 
@@ -60,7 +44,7 @@ module.exports = bot
 // })
 
 // client.on("messageCreate", (message) => {
-//     if(message.content == "Hi") {
+//     if (message.content == "hi"){
 //         message.reply("Hello World!")
 //     }
 // })
